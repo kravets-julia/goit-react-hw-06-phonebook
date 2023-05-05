@@ -36,7 +36,7 @@ export function Form({ onSubmit }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className={css.form}>
+      <form onSubmit={handleSubmit} name="addContact" className={css.form}>
         <label className={css.label}>
           Name <br />
           <input
@@ -64,7 +64,12 @@ export function Form({ onSubmit }) {
             className={css.input}
           />
         </label>
-        <button type="submit" className={css.btn} disabled={!name || !number}>
+        <button
+          type="submit"
+          name="addContact"
+          className={css.btn}
+          disabled={!name || !number}
+        >
           Add contact
         </button>
       </form>

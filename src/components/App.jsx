@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import { ContactsList } from './ContactsList/ContactsList';
 import { Form } from './Form/Form';
 import { FilterContacts } from './FilterContacts/FilterContacts';
@@ -7,6 +6,7 @@ import css from '../components/App.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilter } from 'redux/filterSlice';
 import { addContact, removeContact } from 'redux/contactsSlice';
+import { nanoid } from '@reduxjs/toolkit';
 
 export function App() {
   const filter = useSelector(state => state.filters);
@@ -21,15 +21,17 @@ export function App() {
   //   setContacts(prev => prev.filter(contact => contact.id !== contactId));
   // };
 
-  const formSubmitHandler = ({ name, number }) => {
+  const formSubmitHandler = data => {
     const contact = {
       id: nanoid(),
-      name,
-      number,
+      name: data.name,
+      number: data.number,
     };
 
-    contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase())
-      ? alert(`${name} is alredy in contacts`)
+    contacts.find(
+      contact => contact.name.toLowerCase() === data.name.toLowerCase()
+    )
+      ? alert(`${data.name} is alredy in contacts`)
       : dispatch(addContact(contact));
 
     // prev => {
@@ -46,7 +48,6 @@ export function App() {
 
   const changeFilter = e => {
     dispatch(getFilter(e.currentTarget.value));
-    // setFilter(e.target.value);
   };
   // const filteredContacts = () => {
   //   const normalizedFilter = filter.toLowerCase();
