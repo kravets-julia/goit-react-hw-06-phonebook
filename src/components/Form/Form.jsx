@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import css from '../../components/Form/Form.module.css';
 import { useState } from 'react';
 
@@ -7,16 +5,27 @@ export function Form({ onSubmit }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const handleNameChange = e => {
-    setName(e.target.value);
+  const data = {
+    name,
+    number,
   };
-  const handleNumberChange = e => {
-    setNumber(e.target.value);
-  };
+
+  function handleValue(e) {
+    switch (e.target.name) {
+      case 'name':
+        setName(e.target.value);
+        break;
+      case 'number':
+        setNumber(e.target.value);
+        break;
+      default:
+        break;
+    }
+  }
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit({ name, number });
+    onSubmit(data);
     reset();
   };
 
@@ -37,7 +46,7 @@ export function Form({ onSubmit }) {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
             value={name}
-            onChange={handleNameChange}
+            onChange={handleValue}
             className={css.input}
           />
         </label>
@@ -51,7 +60,7 @@ export function Form({ onSubmit }) {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
             value={number}
-            onChange={handleNumberChange}
+            onChange={handleValue}
             className={css.input}
           />
         </label>
@@ -62,7 +71,3 @@ export function Form({ onSubmit }) {
     </>
   );
 }
-
-Form.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};

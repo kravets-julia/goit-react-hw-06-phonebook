@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import css from '../../components/FilterContacts/FilterContacts.module.css';
 
 export const FilterContacts = ({ value, onChange }) => {
@@ -9,13 +8,9 @@ export const FilterContacts = ({ value, onChange }) => {
         type="text"
         value={value}
         onChange={onChange}
+        placeholder="Введіть ім’я для пошуку"
         className={css.input}
       />
     </label>
   );
-};
-
-FilterContacts.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
 };
