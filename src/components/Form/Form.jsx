@@ -56,20 +56,6 @@ export function Form() {
     }
   };
 
-  // const formSubmitHandler = ({ name, number }) => {
-  //   return contacts.find(
-  //     contact => contact.name.toLowerCase() !== name.toLowerCase()
-  //   )
-  //     ? dispatch(
-  //         addContact({
-  //           id: nanoid(),
-  //           name,
-  //           number,
-  //         })
-  //       )
-  //     : alert(`${name} is alredy in contacts`);
-  // };
-
   const handleSubmit = e => {
     e.preventDefault();
     formSubmitHandler(data);

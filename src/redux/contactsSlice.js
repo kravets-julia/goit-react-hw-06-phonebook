@@ -9,8 +9,12 @@ const ContactsSlice = createSlice({
     },
 
     removeContact(state, action) {
-      state.filter(contact => contact.id !== action.payload);
+      // state.filter(contact => contact.id !== action.payload);
       // return state.filter((item, index) => index !== action.index)
+
+      const newArray = state.slice();
+      newArray.splice(action.index, 1);
+      return newArray;
     },
   },
 });
