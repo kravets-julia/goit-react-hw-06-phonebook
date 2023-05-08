@@ -1,10 +1,12 @@
 import { ContactsListitem } from 'components/ContactsListitem/ContactsListitem';
 import css from '../../components/ContactsList/ContactsList.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeContact } from 'redux/contactsSlice';
 
 export const ContactsList = ({ onDeleteContact }) => {
   const filter = useSelector(state => state.filters);
   const contacts = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
 
   const filteredContacts = () => {
     // const normalizedFilter = filter.toLowerCase();
@@ -21,7 +23,8 @@ export const ContactsList = ({ onDeleteContact }) => {
             <ContactsListitem name={contact.name} number={contact.number} />
 
             <button
-              onClick={() => onDeleteContact(contact.id)}
+              onClick={() => dispatch(removeContact(contact.id))}
+              // onClick={() => onDeleteContact(contact.id)}
               className={css.btn}
             >
               Delete

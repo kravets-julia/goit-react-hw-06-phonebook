@@ -8,7 +8,7 @@ export const FilterContacts = ({ value, onChange }) => {
         type="text"
         value={value}
         onChange={onChange}
-        placeholder="Введіть ім’я для пошуку"
+        placeholder="Enter a name to search for"
         className={css.input}
       />
     </label>

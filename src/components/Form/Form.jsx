@@ -1,9 +1,18 @@
+import { useDispatch, useSelector } from 'react-redux';
 import css from '../../components/Form/Form.module.css';
 import { useState } from 'react';
+import { addContact } from 'redux/contactsSlice';
+import { nanoid } from '@reduxjs/toolkit';
 
-export function Form({ onSubmit }) {
+export function Form() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const filter = useSelector(state => state.contacts.filters);
+  const contacts = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
+  console.log(contacts);
+  console.log(filter);
 
   const data = {
     name,
@@ -23,15 +32,48 @@ export function Form({ onSubmit }) {
     }
   }
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    onSubmit(data);
-    reset();
-  };
-
   const reset = () => {
     setName('');
     setNumber('');
+  };
+
+  function findName(newName) {
+    return contacts.find(
+      ({ name }) => name.toLowerCase() === newName.toLowerCase()
+    );
+  }
+  const formSubmitHandler = ({ name, number }) => {
+    if (!findName(name)) {
+      dispatch(
+        addContact({
+          id: nanoid(),
+          name,
+          number,
+        })
+      );
+    } else {
+      alert(`${name} is alredy in contacts`);
+    }
+  };
+
+  // const formSubmitHandler = ({ name, number }) => {
+  //   return contacts.find(
+  //     contact => contact.name.toLowerCase() !== name.toLowerCase()
+  //   )
+  //     ? dispatch(
+  //         addContact({
+  //           id: nanoid(),
+  //           name,
+  //           number,
+  //         })
+  //       )
+  //     : alert(`${name} is alredy in contacts`);
+  // };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    formSubmitHandler(data);
+    reset();
   };
 
   return (
@@ -67,6 +109,7 @@ export function Form({ onSubmit }) {
         <button
           type="submit"
           name="addContact"
+          onClick={handleSubmit}
           className={css.btn}
           disabled={!name || !number}
         >

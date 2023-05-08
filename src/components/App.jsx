@@ -9,8 +9,8 @@ import { addContact, removeContact } from 'redux/contactsSlice';
 import { nanoid } from '@reduxjs/toolkit';
 
 export function App() {
-  const filter = useSelector(state => state.filters);
-  const contacts = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.contacts.filters);
+  const contacts = useSelector(state => state.contacts.contacts);
   const dispatch = useDispatch();
 
   const deleteContact = () => {
@@ -21,30 +21,36 @@ export function App() {
   //   setContacts(prev => prev.filter(contact => contact.id !== contactId));
   // };
 
-  const formSubmitHandler = data => {
-    const contact = {
-      id: nanoid(),
-      name: data.name,
-      number: data.number,
-    };
+  // const formSubmitHandler = data => {
+  //   // const contact = {
+  //   //   id: nanoid(),
+  //   //   name: data.name,
+  //   //   number: data.number,
+  //   // };
+  //   console.log(data.name);
+  //   contacts.find(
+  //     contact => contact.name.toLowerCase() === data.name.toLowerCase()
+  //   )
+  //     ? alert(`${data.name} is alredy in contacts`)
+  //     : dispatch(
+  //         addContact({
+  //           id: nanoid(),
+  //           name: data.name,
+  //           number: data.number,
+  //         })
+  //       );
 
-    contacts.find(
-      contact => contact.name.toLowerCase() === data.name.toLowerCase()
-    )
-      ? alert(`${data.name} is alredy in contacts`)
-      : dispatch(addContact(contact));
-
-    // prev => {
-    //   return [
-    //     ...prev,
-    //     {
-    //       id: nanoid(),
-    //       name: data.name,
-    //       number: data.number,
-    //     },
-    //   ];
-    // };
-  };
+  // prev => {
+  //   return [
+  //     ...prev,
+  //     {
+  //       id: nanoid(),
+  //       name: data.name,
+  //       number: data.number,
+  //     },
+  //   ];
+  // };
+  // };
 
   const changeFilter = e => {
     dispatch(getFilter(e.currentTarget.value));
@@ -59,7 +65,7 @@ export function App() {
   return (
     <>
       <h1 className={css.title}>Phonebook</h1>
-      <Form onSubmit={formSubmitHandler} />
+      <Form />
       <h2 className={css.title__contacts}>Contacts</h2>
       <FilterContacts value={filter} onChange={changeFilter} />
       <ContactsList
