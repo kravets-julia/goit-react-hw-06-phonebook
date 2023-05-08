@@ -8,11 +8,8 @@ export function Form() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const filter = useSelector(state => state.contacts.filters);
   const contacts = useSelector(state => state.contacts);
   const dispatch = useDispatch();
-  console.log(contacts);
-  console.log(filter);
 
   const data = {
     name,
